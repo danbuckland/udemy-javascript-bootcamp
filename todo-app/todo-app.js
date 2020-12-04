@@ -1,23 +1,13 @@
-const todos = [{
-  text: 'Clean bathroom',
-  complete: false
-}, {
-  text: 'Check JIRA for stagnant issues',
-  complete: true
-}, {
-  text: 'Drink water',
-  complete: true
-}, {
-  text: 'Write review',
-  complete: true
-}, {
-  text: 'Learn JavaScript',
-  complete: false
-}];
+let todos = [];
 
 const filters = {
   searchText: '',
   hideCompleted: false
+}
+
+const todosJSON = localStorage.getItem('todos')
+if (todosJSON !== null) {
+  todos = JSON.parse(todosJSON);
 }
 
 const incompleteTodos = function(todos) {
@@ -59,13 +49,14 @@ const renderTodos = function(todos, filters) {
 
 renderTodos(todos, filters);
 
+// Add a todo and render it
 document.querySelector('#todo-form').addEventListener('submit', function(e) {
   e.preventDefault();
   todos.push({
     text: e.target.elements.newTodo.value,
     complete: false
   });
-
+  localStorage.setItem('todos', JSON.stringify(todos));
   renderTodos(todos, filters);
   e.target.elements.newTodo.value = '';
 });

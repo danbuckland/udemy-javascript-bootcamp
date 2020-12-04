@@ -1,18 +1,15 @@
 // const p = document.querySelector('p');
 // p.remove();
-let notes = [{
-  title: 'My next trip',
-  body: 'Planning to go to Iceland'
-}, {
-  title: 'Things I need to do',
-  body: 'Book restaurants for my stay'
-}, {
-  title: 'Habits to work on',
-  body: 'Need to do personal work during daylight'
-}]
+let notes = []
 
 const filters = {
   searchText: ''
+}
+
+// Check for existing saved data
+const notesJSON = localStorage.getItem('notes')
+if (notesJSON !== null) {
+  notes = JSON.parse(notesJSON);
 }
 
 const renderNotes = function (notes, filters) {
@@ -24,7 +21,11 @@ const renderNotes = function (notes, filters) {
 
   filteredNotes.forEach(function(note) {
     const noteEl = document.createElement('p');
-    noteEl.textContent = note.title
+    if (note.title.length > 0) {
+      noteEl.textContent = note.title
+    } else {
+      noteEl.textContent = 'Empty note'
+    }
     document.querySelector('#notes').appendChild(noteEl);
   })
 }
@@ -32,8 +33,12 @@ const renderNotes = function (notes, filters) {
 renderNotes(notes, filters);
 
 document.querySelector('#create-note').addEventListener('click', function (e) {
-  console.log('Did this work?');
-  e.target.textContent = 'Yep!';
+  notes.push({
+    title: '',
+    body: ''
+  })
+  localStorage.setItem('notes', JSON.stringify(notes));
+  renderNotes(notes, filters)
 })
 
 document.querySelector('#search-text').addEventListener('input', function(e) {
