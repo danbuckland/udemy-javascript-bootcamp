@@ -22,6 +22,7 @@ renderTodos(todos, filters);
 document.querySelector('#todo-form').addEventListener('submit', function(e) {
   e.preventDefault();
   todos.push({
+    id: uuidv4(),
     text: e.target.elements.newTodo.value,
     complete: false
   });

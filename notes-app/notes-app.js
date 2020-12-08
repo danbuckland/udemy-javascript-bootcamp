@@ -1,5 +1,3 @@
-// const p = document.querySelector('p');
-// p.remove();
 const notes = getSavedNotes();
 
 const filters = {
@@ -11,7 +9,8 @@ renderNotes(notes, filters);
 document.querySelector('#create-note').addEventListener('click', function (e) {
   notes.push({
     title: '',
-    body: ''
+    body: '',
+    id: uuidv4()
   })
   saveNotes(notes)
   renderNotes(notes, filters)

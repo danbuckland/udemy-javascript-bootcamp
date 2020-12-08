@@ -17,6 +17,11 @@ const generateNoteDom = function (note) {
 
   // Setup remove note button
   button.textContent = 'x'
+  button.addEventListener('click', function () {
+    removeNote(note.id)
+    saveNotes(notes)
+    renderNotes(notes, filters)
+  })
   noteEl.appendChild(button);
 
   // Setup the note title text
@@ -47,4 +52,14 @@ const renderNotes = function (notes, filters) {
 // Save notes to local storage
 const saveNotes = function (notes) {
   localStorage.setItem('notes', JSON.stringify(notes))
+}
+
+const removeNote = function (id) {
+  let noteIndex = notes.findIndex(function (note) {
+    return note.id === id
+  })
+
+  if (noteIndex > -1) {
+    notes.splice(noteIndex, 1)
+  }
 }

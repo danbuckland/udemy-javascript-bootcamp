@@ -44,13 +44,30 @@ const generateTodoDOM = function (todo) {
   const checkbox = document.createElement('input')
   const removeButton = document.createElement('button')
 
-  checkbox.setAttribute('type', 'checkbox');
-  todoText.textContent = todo.text
-  removeButton.textContent = 'x'
-
+  // Setup checkbox element
+  checkbox.setAttribute('type', 'checkbox')
+  checkbox.checked = todo.complete
+  checkbox.addEventListener('change', function(e) {
+    checkUncheckTodo(todo.id)
+    saveTodos(todos)
+    renderTodos(todos, filters)
+  })
   todoEl.appendChild(checkbox)
+  
+
+  // Setup todo text element
+  todoText.textContent = todo.text
   todoEl.appendChild(todoText)
+
+  // Setup remove button element
+  removeButton.textContent = 'x'
+  removeButton.addEventListener('click', function () {
+    removeTodo(todo.id)
+    saveTodos(todos)
+    renderTodos(todos, filters)
+  })
   todoEl.appendChild(removeButton)
+
   return todoEl
 }
 
@@ -59,4 +76,24 @@ const generateSummaryDOM = function (incompleteTodos) {
   let summary = document.createElement('h2');
   summary.textContent = `You have ${incompleteTodos.length} items left todo`;
   return summary
+}
+
+// Remove todo from array
+const removeTodo = function (id) {
+  let todoIndex = todos.findIndex(function (todo) {
+    return todo.id === id
+  })
+  if (todoIndex >= -1) {
+    todos.splice(todoIndex, 1);
+  }
+}
+
+// Mark todo as complete
+const checkUncheckTodo = function (id) {
+  const todo = todos.find(function (todo) {
+    return todo.id === id
+  })
+  if (todo !== undefined) {
+    todo.complete = !todo.complete
+  }
 }
