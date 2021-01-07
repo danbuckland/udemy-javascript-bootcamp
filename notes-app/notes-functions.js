@@ -12,7 +12,7 @@ const getSavedNotes = function () {
 // Generate the DOM structure for a note
 const generateNoteDom = function (note) {
   const noteEl = document.createElement('div')
-  const textElement = document.createElement('span')
+  const textElement = document.createElement('a')
   const button = document.createElement('button')
 
   // Setup remove note button
@@ -30,6 +30,8 @@ const generateNoteDom = function (note) {
   } else {
     textElement.textContent = 'Empty note'
   }
+  // Setup the link to the edit page
+  textElement.href = `/edit.html#${note.id}`
   noteEl.appendChild(textElement);
 
   return noteEl;
