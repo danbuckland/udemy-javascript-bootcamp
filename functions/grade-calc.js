@@ -1,4 +1,7 @@
 let gradeCalc = function (studentScore, totalScore) {
+  if (typeof studentScore !== 'number' || typeof totalScore !== 'number') {
+    throw Error('Please provide a number for score and total')
+  }
   let percentScore = (studentScore / totalScore) * 100
   let grade;
   let indefiniteArticle = 'a';
@@ -18,4 +21,13 @@ let gradeCalc = function (studentScore, totalScore) {
   return `You got ${indefiniteArticle} ${grade} (${Math.round(percentScore)}%)!`
 }
 
-console.log(gradeCalc(15,25))
+const score = true
+const total = 25
+let result
+
+try {
+  result = gradeCalc(score, total)
+  console.log(result)
+} catch (e) {
+  console.log(e.message)
+}
