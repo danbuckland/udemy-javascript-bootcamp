@@ -1,3 +1,5 @@
+'use strict'
+
 const filters = {
   searchText: '',
   hideCompleted: false
