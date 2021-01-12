@@ -32,19 +32,17 @@ bodyInput.addEventListener('input', function(e) {
   saveNotes(notes)
 })
 
-removeBtn.addEventListener('click', function () {
+removeBtn.addEventListener('click', () => {
   removeNote(note.id)
   saveNotes(notes)
   location.assign('/index.html')
 })
 
-window.addEventListener('storage', function (e) {
+window.addEventListener('storage', (e) => {
   if (e.key === 'notes') {
     notes = JSON.parse(e.newValue)
 
-    note = notes.find(function (note) {
-      return note.id === noteId
-    })
+    note = notes.find((note) => note.id === noteId)
     
     if (!note) {
       location.assign('/index.html')

@@ -5,21 +5,13 @@ const filters = {
 
 const todos = getSavedTodos();
 
-const incompleteTodos = function(todos) {
-  let incompleteTodos = todos.filter(function (todo) {
-    return !todo.complete
-  });
-  return incompleteTodos
-};
-
-const getRemainingTodosCount = function (todos) {
-  return incompleteTodos(todos).length;
-};
+const incompleteTodos = (todos) => todos.filter((todo) => !todo.complete)
+const getRemainingTodosCount = (todos) => incompleteTodos(todos).length
 
 renderTodos(todos, filters);
 
 // Add a todo and render it
-document.querySelector('#todo-form').addEventListener('submit', function(e) {
+document.querySelector('#todo-form').addEventListener('submit', (e) => {
   e.preventDefault();
   todos.push({
     id: uuidv4(),
@@ -32,14 +24,13 @@ document.querySelector('#todo-form').addEventListener('submit', function(e) {
 });
 
 // Listen for search text input change
-document.querySelector('#search-text-input').addEventListener('input', function(e) {
+document.querySelector('#search-text-input').addEventListener('input', (e) => {
   filters.searchText = e.target.value;
   renderTodos(todos, filters);
 });
 
 // Listener for hide completed checkbox
-document.querySelector('#hide-completed').addEventListener('change', function(e) {
+document.querySelector('#hide-completed').addEventListener('change', (e) => {
   filters.hideCompleted = e.target.checked;
   renderTodos(todos, filters);
 });
-
