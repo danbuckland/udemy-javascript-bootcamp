@@ -1,7 +1,7 @@
 // Read existing notes from local storage
 const getSavedNotes = () => {
   const notesJSON = localStorage.getItem('notes')
-  return notesJSON !== null ? JSON.parse(notesJSON) : []
+  return notesJSON ? JSON.parse(notesJSON) : []
 }
 
 // Generate the DOM structure for a note
@@ -20,7 +20,7 @@ const generateNoteDom = (note) => {
   noteEl.appendChild(button);
 
   // Setup the note title text
-  if (note.title.length > 0) {
+  if (note.title) {
     textElement.textContent = note.title
   } else {
     textElement.textContent = 'Empty note'

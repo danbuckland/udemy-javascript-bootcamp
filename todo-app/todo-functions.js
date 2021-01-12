@@ -1,7 +1,7 @@
 // Get saved todos from local storage
 const getSavedTodos = () => {
   const todosJSON = localStorage.getItem('todos')
-  return todosJSON !== null ? JSON.parse(todosJSON) : []
+  return todosJSON ? JSON.parse(todosJSON) : []
 }
 
 // Save todos to local storage
@@ -82,7 +82,7 @@ const removeTodo = (id) => {
 // Mark todo as complete
 const checkUncheckTodo = (id) => {
   const todo = todos.find((todo) => todo.id === id)
-  if (todo !== undefined) {
+  if (todo) {
     todo.complete = !todo.complete
   }
 }
