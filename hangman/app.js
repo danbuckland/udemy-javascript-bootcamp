@@ -1,14 +1,21 @@
-// Primitive values, there are 5 in JavaScript: string, number, boolean, null, undefined
 
-// Object: myObject --> Object.prototype --> null
-// Array: myArray --> Array.prototype --> Object.prototype --> null
-// Function: myFunc --> Function.prototype --> Object.prototyep --> null
-// String: myString --> String.prototype --> Object.prototype --> null
-// Number: myNumber --> Number.prototype --> Object.prototype --> null
-// Boolean: myBoolean --> Boolean.prototype --> Object.prototype --> null
 
-const getScore = function() { return 1 }
-const product = 'Computer'
-const otherProduct = new String('Phone')
-console.log(otherProduct)
-console.log(product)
+const game1 = new Hangman('California', 5)
+const game2 = new Hangman('steady', 4)
+const game3 = new Hangman('High Score', 10)
+const gameProgress = document.querySelector('#game')
+const guessesRemaining = document.querySelector('#guesses')
+
+gameProgress.textContent = game3.getPuzzle()
+guessesRemaining.textContent = `Guesses remaining: ${game3.remainingGuesses}`
+
+// console.log(game1.getPuzzle())
+// console.log(game2.getPuzzle())
+// console.log(game3.getPuzzle())
+console.log(game3.getPuzzle())
+
+window.addEventListener('keypress', (e) => {
+  game3.guess(e.key)
+  gameProgress.textContent = game3.getPuzzle()
+  guessesRemaining.textContent = `Guesses remaining: ${game3.remainingGuesses}`
+})
