@@ -14,5 +14,5 @@ console.log(game3.getPuzzle())
 window.addEventListener('keypress', (e) => {
   game3.guess(e.key)
   puzzleEl.textContent = game3.getPuzzle()
-  guessesEl.textContent = `Guesses remaining: ${game3.remainingGuesses}`
+  guessesEl.textContent = game3.getStatusMessage()
 })
