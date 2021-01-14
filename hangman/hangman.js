@@ -29,18 +29,19 @@ Hangman.prototype.guess = function(guess) {
   if (guess.length > 1 || guess.length === ' ' || !guess.length) return
   
   guess = guess.toLowerCase()
+  
   if (this.guessedLetters.includes(guess)) {
     console.log(`You already guessed ${guess}!`)
     return
   }
-  this.remainingGuesses--
   
   let beforeState = this.getPuzzle()
   this.guessedLetters.push(guess)
   if (this.getPuzzle() === beforeState) {
+    this.remainingGuesses--
     console.log(`There are no ${guess}'s in the word. Guesses remaining: ${this.remainingGuesses}`)
   } else {
-    console.log(`You found a match. Guesses remaining: ${this.remainingGuesses}`)
+    console.log(`You found a match!`)
   }
 }
 
