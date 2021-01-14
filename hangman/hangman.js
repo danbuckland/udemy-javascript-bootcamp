@@ -6,6 +6,8 @@ const Hangman = function(word, guesses) {
   this.word = word.toLowerCase().split('')
   this.guessedLetters = []
   this.remainingGuesses = guesses
+  this.currentState = this.getPuzzle()
+  this.status = 'playing'
 }
 
 Hangman.prototype.getPuzzle = function() {
@@ -20,7 +22,25 @@ Hangman.prototype.getPuzzle = function() {
   return puzzle
 }
 
+Hangman.prototype.calculateStatus = function() {
+  // if the user has guesses remaining, status is playing
+  if (!this.remainingGuesses) { 
+    this.status = 'failed'
+    return
+  }
+  if (this.currentState.includes('*')) {
+    this.status = 'playing'
+  } else {
+    this.status = 'finished'
+  }
+  // if the user has no guess remaining, status is failed
+  // if the user has revealed all the characters, status is finished
+
+
+}
+
 Hangman.prototype.guess = function(guess) {
+  if (this.status !== 'playing') return
   guess = guess.toLowerCase()
   if (!this.remainingGuesses 
       || guess.length > 1 
@@ -28,8 +48,12 @@ Hangman.prototype.guess = function(guess) {
       || this.guessedLetters.includes(guess)) {
     return
   }
-  
+
   const beforeState = this.getPuzzle()
   this.guessedLetters.push(guess)
-  if (this.getPuzzle() === beforeState) this.remainingGuesses--
+  this.currentState = this.getPuzzle()
+  if (this.currentState === beforeState) this.remainingGuesses--
+
+  this.calculateStatus()
+  console.log(this.status)
 }
