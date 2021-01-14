@@ -1,5 +1,5 @@
 // Prototypal Inheritance
-const Person = function(firstName, lastName, age, likes = []) {
+const Person = function (firstName, lastName, age, likes = []) {
   this.firstName = firstName
   this.lastName = lastName
   this.age = age
@@ -28,3 +28,5 @@ console.log(me.getBio())
 console.log(person2.getBio())
 person2.setName('Alexis Matteo')
 console.log(person2)
+
+console.log(person2.getBio())
