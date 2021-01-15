@@ -15,7 +15,7 @@ class Person {
     })
     return bio
   }
-  
+
   setName(fullName) {
     const names = fullName.split(' ')
     this.firstName = names[0]
@@ -23,12 +23,41 @@ class Person {
   }
 }
 
-const me = new Person('Dan', 'Buckland', 33, ['Xbox', 'Halo', 'VR'])
-const person2 = new Person('Milly', 'Turner', 12, ['horses', 'school', 'drag'])
+class Employee extends Person {
+  constructor(firstName, lastName, age, position, likes) {
+    super(firstName, lastName, age, likes)
+    this.position = position
+  }
+  getBio() {
+    return `${this.firstName} ${this.lastName} is a ${this.position}.`
+  }
+  getYearsLeft() {
+    return 67 - this.age
+  }
+}
 
-console.log(me.getBio())
-console.log(person2.getBio())
-person2.setName('Alexis Matteo')
-console.log(person2)
+class Student extends Person {
+  constructor(firstName, lastName, grade, age, likes) {
+    super(firstName, lastName, age, likes)
+    this.grade = grade
+  }
 
-console.log(person2.getBio())
+  getBio() {
+    const status = this.grade >= 70 ? 'passing' : 'failing'
+    return `${this.firstName} is ${status} the class`
+  }
+
+  updateGrade(change) {
+    this.grade += change
+    if (this.grade < 0) {
+      this.grade = 0
+    } else if (this.grade > 100) {
+      this.grade = 100
+    }
+  }
+}
+
+const mike = new Student('Mike', 'Shinoda', 60, 38)
+console.log(mike.getBio())
+mike.updateGrade(40)
+console.log(mike.getBio())
