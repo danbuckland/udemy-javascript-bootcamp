@@ -1,17 +1,13 @@
-// Setup the word instance as an array of lowercase letters
-// Setup another instance property to store guessed letters
-// Create a method that gives you the word puzzle back with guesses e.g. "st*a*y"
 class Hangman {
   constructor(word, guesses) {
     this.answer = word
     this.word = word.toLowerCase().split('')
     this.guessedLetters = []
     this.remainingGuesses = guesses
-    this.currentState = this.getPuzzle()
     this.status = 'playing'
   }
 
-  getPuzzle() {
+  get puzzle() {
     let puzzle = ''
     this.word.forEach(char => {
       if (this.guessedLetters.includes(char) || char === ' ') {
@@ -26,14 +22,14 @@ class Hangman {
   calculateStatus() {
     if (!this.remainingGuesses) { 
       this.status = 'failed'
-    } else if (this.currentState.includes('*')) {
+    } else if (this.puzzle.includes('*')) {
       this.status = 'playing'
     } else {
       this.status = 'finished'
     }
   }
 
-  getStatusMessage() {
+  get statusMessage() {
     if (this.status === 'failed') {
       return `Too bad you suck! The answer was ${this.answer}.`
     } else if (this.status === 'finished') {
@@ -53,10 +49,9 @@ class Hangman {
       return
     }
 
-    const beforeState = this.getPuzzle()
+    const beforeState = this.puzzle
     this.guessedLetters.push(guess)
-    this.currentState = this.getPuzzle()
-    if (this.currentState === beforeState) this.remainingGuesses--
+    if (this.puzzle === beforeState) this.remainingGuesses--
 
     this.calculateStatus()
   }
