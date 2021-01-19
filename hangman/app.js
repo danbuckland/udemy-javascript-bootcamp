@@ -20,18 +20,9 @@ getPuzzle((error, puzzle) => {
   })
 })
 
-
-// const coutriesReq = new XMLHttpRequest()
-
-// coutriesReq.addEventListener('readystatechange', (e) => {
-//   if (e.target.readyState === 4 && e.target.status === 200) {
-//     const countriesData = JSON.parse(e.target.responseText)
-//     const myCountry = countriesData.find(country => country.alpha2Code === 'GB')
-//     console.log(myCountry.name)
-//   } else if (e.target.readyState === 4) {
-//     console.log('An error has occurred')
-//   }
-// })
-
-// coutriesReq.open('GET', 'http://restcountries.eu/rest/v2/all')
-// coutriesReq.send()
+getCountry('IR', (error, country) => {
+  if (error) {
+    throw new Error(error)
+  }
+  console.log(country.name)
+})
