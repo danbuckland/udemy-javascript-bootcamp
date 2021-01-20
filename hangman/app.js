@@ -5,10 +5,7 @@ const puzzleEl = document.querySelector('#game')
 const guessesEl = document.querySelector('#guesses')
 const dynamicGame = new Hangman('DEFAULTGAME', 5)
 
-getPuzzle(2, (error, puzzle) => {
-  if (error) {
-    console.log(`Error: ${error}`)
-  }
+getPuzzle(2).then((puzzle) => {
   const dynamicGame = new Hangman(puzzle, 5)
   puzzleEl.textContent = dynamicGame.puzzle
   guessesEl.textContent = `Guesses remaining: ${dynamicGame.remainingGuesses}`
@@ -18,6 +15,8 @@ getPuzzle(2, (error, puzzle) => {
     puzzleEl.textContent = dynamicGame.puzzle
     guessesEl.textContent = dynamicGame.statusMessage
   })
+}, (err) => {
+  throw new Error(err)
 })
 
 getCountry('IR', (error, country) => {
