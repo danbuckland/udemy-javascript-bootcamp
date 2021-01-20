@@ -5,7 +5,7 @@ const puzzleEl = document.querySelector('#game')
 const guessesEl = document.querySelector('#guesses')
 const dynamicGame = new Hangman('DEFAULTGAME', 5)
 
-getPuzzle((error, puzzle) => {
+getPuzzle(2, (error, puzzle) => {
   if (error) {
     console.log(`Error: ${error}`)
   }
