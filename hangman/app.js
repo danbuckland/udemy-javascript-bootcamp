@@ -19,9 +19,9 @@ getPuzzle(2).then((puzzle) => {
   throw new Error(err)
 })
 
-getCountry('IR', (error, country) => {
-  if (error) {
-    throw new Error(error)
-  }
+getCountry('IR').then((country) => {
   console.log(country.name)
+}, (err) => {
+  throw new Error(err)
 })
+
