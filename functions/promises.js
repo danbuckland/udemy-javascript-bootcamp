@@ -1,32 +1,53 @@
 // Callback technique
-const getDataCallback = (callback) => {
+const getDataCallback = (num, callback) => {
   setTimeout(() => {
-    // callback(undefined, 'This is the callback data')
-    callback('This is a callback error')
-    callback('This is a callback error')
+    if (typeof num === 'number') {
+      callback(undefined, num * 2)
+    } else {
+      callback('Number must be provided')
+    }
   }, 1500)
 }
 
-getDataCallback((err, data) => {
+// This is called 'Callback hell'!
+getDataCallback(2, (err, data) => {
   if (err) {
     console.log(err)
   } else {
-    console.log(data)
+    getDataCallback(data, (err, data) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(data)
+      }
+    })
   }
 })
 
 // Promise technique
-const getDataPromise = (data) => new Promise((resolve, reject) => {
+const getDataPromise = (num) => new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve(`This is my success data: ${data}`)
-    // reject('This is a promise error')
+    typeof num === 'number' ? resolve(num * 2) : reject('Number must be provided')
   }, 1500)
 })
 
-const myPromise = getDataPromise(123)
-
-myPromise.then((data) => {
-  console.log(data)
+getDataPromise(2).then((data) => {
+  getDataPromise(data).then((data) => {
+    console.log(`Promise data: ${data}`)
+  }, (err) => {
+    throw new Error(err)
+  })
 }, (err) => {
-  console.log(err)
+  throw new Error(err)
+})
+
+// Promise chaining with catch for reject handling
+getDataPromise('10').then((data) => {
+  return getDataPromise(data)
+}).then((data) => {
+  return getDataPromise(data)
+}).then((data) => {
+  console.log(data)
+}).catch((err) => {
+  throw new Error(err)
 })
