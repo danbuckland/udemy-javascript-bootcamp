@@ -19,9 +19,17 @@ getPuzzle(2).then((puzzle) => {
   throw new Error(err)
 })
 
-getCountry('IR').then((country) => {
+getLocation().then((location) => {
+  return getCountry(location.country)
+}).then((country) => {
   console.log(country.name)
-}, (err) => {
-  throw new Error(err)
+}).catch((err) => {
+  console.log(err)
+})
+
+getLocation().then((data) => {
+  console.log(`${data.city}, ${data.region}, ${data.country}`)
+}).catch((err) => {
+  console.log(err)
 })
 
