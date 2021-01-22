@@ -3,10 +3,23 @@ const game2 = new Hangman('steady', 4)
 const game3 = new Hangman('High Score', 3)
 const puzzleEl = document.querySelector('#game')
 const guessesEl = document.querySelector('#guesses')
-const dynamicGame = new Hangman('DEFAULTGAME', 5)
+const newGameButton = document.querySelector('#reset')
+let dynamicGame = new Hangman('DEFAULTGAME', 5)
+const noOfWords = 2
 
-getPuzzle(2).then((puzzle) => {
-  const dynamicGame = new Hangman(puzzle, 5)
+newGameButton.addEventListener('click', (e) => {
+  console.log(e)
+  getPuzzle(noOfWords).then((puzzle) => {
+    dynamicGame = new Hangman(puzzle, 5)
+    puzzleEl.textContent = dynamicGame.puzzle
+    guessesEl.textContent = `Guesses remaining: ${dynamicGame.remainingGuesses}`
+  }).catch((err) => {
+    console.log(err)
+  })
+})
+
+getPuzzle(noOfWords).then((puzzle) => {
+  dynamicGame = new Hangman(puzzle, 5)
   puzzleEl.textContent = dynamicGame.puzzle
   guessesEl.textContent = `Guesses remaining: ${dynamicGame.remainingGuesses}`
   
@@ -15,8 +28,8 @@ getPuzzle(2).then((puzzle) => {
     puzzleEl.textContent = dynamicGame.puzzle
     guessesEl.textContent = dynamicGame.statusMessage
   })
-}, (err) => {
-  throw new Error(err)
+}).catch((err) => {
+  console.log(err)
 })
 
 getCurrentCountry().then((country) => {
