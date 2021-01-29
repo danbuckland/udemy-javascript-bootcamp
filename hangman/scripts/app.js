@@ -12,8 +12,13 @@ const newGame = async () => {
 }
 
 const render = () => {
-  puzzleEl.textContent = game.puzzle
-  guessesEl.textContent = `Guesses remaining: ${game.remainingGuesses}` 
+  guessesEl.textContent = game.statusMessage
+  puzzleEl.innerHTML = ''
+  for (letter of game.puzzle) {
+    const letterEl = document.createElement('span')
+    letterEl.textContent = letter
+    puzzleEl.appendChild(letterEl)
+  }
 }
 
 newGameButton.addEventListener('click', newGame)
@@ -22,13 +27,6 @@ newGame()
   
 window.addEventListener('keypress', (e) => {
   game.guess(e.key)
-  puzzleEl.textContent = game.puzzle
-  guessesEl.textContent = game.statusMessage
+  render()
 })
-
-// getCurrentCountry().then((country) => {
-//   console.log(country.name)
-// }).catch((err) => {
-//   console.log(err)
-// })
 

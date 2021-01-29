@@ -31,9 +31,9 @@ class Hangman {
 
   get statusMessage() {
     if (this.status === 'failed') {
-      return `Too bad you suck! The answer was ${this.answer}.`
+      return `Too bad! The answer was ${this.answer}.`
     } else if (this.status === 'finished') {
-      return `Dude! Sweet! That was awesome!`
+      return `That was awesome!`
     } else {
       return `Guesses remaining: ${this.remainingGuesses}`
     }
