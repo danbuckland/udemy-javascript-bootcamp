@@ -12,29 +12,28 @@ const getSavedNotes = () => {
 
 // Generate the DOM structure for a note
 const generateNoteDom = (note) => {
-  const noteEl = document.createElement('div')
-  const textElement = document.createElement('a')
-  const button = document.createElement('button')
-
-  // Setup remove note button
-  button.textContent = 'x'
-  button.addEventListener('click', () => {
-    removeNote(note.id)
-    saveNotes(notes)
-    renderNotes(notes, filters)
-  })
-  noteEl.appendChild(button);
+  const noteEl = document.createElement('a')
+  const textEl = document.createElement('p')
+  const statusEl = document.createElement('p')
 
   // Setup the note title text
   if (note.title) {
-    textElement.textContent = note.title
+    textEl.textContent = note.title
   } else {
-    textElement.textContent = 'Empty note'
+    textEl.textContent = 'Empty note'
   }
+  textEl.classList.add('list-item__title')
+  noteEl.appendChild(textEl);
+  
   // Setup the link to the edit page
-  textElement.href = `/edit.html#${note.id}`
-  noteEl.appendChild(textElement);
-
+  noteEl.href = `/edit.html#${note.id}`
+  noteEl.classList.add('list-item')
+  
+  // Setup the status message
+  statusEl.textContent = getLastEditedString(note.updatedAt)
+  statusEl.classList.add('list-item__subtitle')
+  noteEl.appendChild(statusEl)
+  
   return noteEl;
 }
 
@@ -78,6 +77,7 @@ const sortNotes = (notes, sortBy) => {
 
 // Render application notes
 const renderNotes = (notes, filters) => {
+  const notesEl = document.querySelector('#notes');
   notes = sortNotes(notes, filters.sortBy)
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
@@ -85,10 +85,18 @@ const renderNotes = (notes, filters) => {
 
   document.querySelector('#notes').innerHTML = '';
 
-  filteredNotes.forEach((note) => {
-    const noteEl = generateNoteDom(note);
-    document.querySelector('#notes').appendChild(noteEl)
-  })
+  if (filteredNotes.length > 0) {
+    filteredNotes.forEach((note) => {
+      const noteEl = generateNoteDom(note)
+      notesEl.appendChild(noteEl)
+    })
+  } else {
+    const emptyMsg = document.createElement('p')
+    emptyMsg.textContent = "No notes to show"
+    emptyMsg.classList.add('empty-message')
+    notesEl.appendChild(emptyMsg)
+  }
+
 }
 
 // Save notes to local storage
