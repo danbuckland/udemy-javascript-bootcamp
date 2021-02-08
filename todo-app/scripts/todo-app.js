@@ -15,13 +15,16 @@ renderTodos(todos, filters);
 // Add a todo and render it
 document.querySelector('#todo-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  todos.push({
-    id: uuidv4(),
-    text: e.target.elements.newTodo.value,
-    complete: false
-  });
-  saveTodos(todos);
-  renderTodos(todos, filters);
+  const text = e.target.elements.newTodo.value.trim()
+  if (text.length > 0) {
+    todos.push({
+      id: uuidv4(),
+      text,
+      complete: false
+    });
+    saveTodos(todos);
+    renderTodos(todos, filters);
+  }
   e.target.elements.newTodo.value = '';
 });
 
