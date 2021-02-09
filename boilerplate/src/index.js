@@ -7,4 +7,4 @@ class Hangman {
   }
 }
 
-// Run `babel input.js -o output.js --presets env` to see output.js
+// Run `babel src/index.js -o public/scripts/bundle.js --presets env` to create bundle.js
