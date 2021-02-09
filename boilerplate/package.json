@@ -4,12 +4,15 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src/index.js -o public/scripts/bundle.js --presets env --watch",
-    "serve": "live-server public"
+    "serve": "live-server public",
+    "webpack": "webpack"
   },
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
   }
 }
