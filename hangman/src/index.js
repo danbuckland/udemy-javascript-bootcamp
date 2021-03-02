@@ -1,3 +1,7 @@
+import "regenerator-runtime/runtime";
+import Hangman from './hangman'
+import getPuzzle from './requests'
+
 const puzzleEl = document.querySelector('#game')
 const guessesEl = document.querySelector('#guesses')
 const newGameButton = document.querySelector('#reset')
@@ -14,7 +18,7 @@ const newGame = async () => {
 const render = () => {
   guessesEl.textContent = game.statusMessage
   puzzleEl.innerHTML = ''
-  for (letter of game.puzzle) {
+  for (const letter of game.puzzle) {
     const letterEl = document.createElement('span')
     letterEl.textContent = letter
     puzzleEl.appendChild(letterEl)

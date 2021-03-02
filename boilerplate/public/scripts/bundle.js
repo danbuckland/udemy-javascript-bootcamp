@@ -1,1 +1,0 @@
-(()=>{console.log("Dan");const o=new class{myMethod(){return"Hangman class method"}};console.log(o.myMethod())})();

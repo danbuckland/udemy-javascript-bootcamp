@@ -32,3 +32,5 @@ const getLocation = async () => {
     throw new Error('Unable to get location')
   }
 }
+
+export { getPuzzle as default }

@@ -1,4 +1,4 @@
-class Hangman {
+export default class Hangman {
   constructor(word, guesses) {
     this.answer = word
     this.word = word.toLowerCase().split('')
