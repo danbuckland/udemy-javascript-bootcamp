@@ -1,5 +1,5 @@
 import { setFilters } from './filters'
-import { createTodo } from './todos'
+import { createTodo, loadTodos } from './todos'
 import { renderTodos } from './views'
 
 // Render initial todos
@@ -28,5 +28,12 @@ document.querySelector('#todo-form').addEventListener('submit', (e) => {
   e.target.elements.newTodo.value = '';
   renderTodos();
 });
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'todos') {
+    loadTodos()
+    renderTodos()
+  }
+})
 
 // Bonus: Add a watcher for local storage
