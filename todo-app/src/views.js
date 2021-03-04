@@ -1,23 +1,13 @@
-"use strict";
-
-// Get saved todos from local storage
-const getSavedTodos = () => {
-  const todosJSON = localStorage.getItem("todos");
-  try {
-    return todosJSON ? JSON.parse(todosJSON) : [];
-  } catch (e) {
-    return [];
-  }
-};
-
-// Save todos to local storage
-const saveTodos = (todos) => {
-  localStorage.setItem("todos", JSON.stringify(todos));
-};
-
+import { checkUncheckTodo, saveTodos, loadTodos, getTodos, removeTodo } from './todos'
+import { getFilters } from './filters'
+// renderTodos
+// Arguments: none
+// Return value: none
 // Render todos on the page
-const renderTodos = (todos, filters) => {
-
+const renderTodos = () => {
+  loadTodos()
+  const todos = getTodos()
+  const filters = getFilters()
   const todosEl = document.querySelector("#todos")
 
   let filteredTodos = todos.filter((todo) => {
@@ -52,7 +42,9 @@ const renderTodos = (todos, filters) => {
   }
 };
 
-// Returns a DOM element for an individual todo
+// generateTodoDOM
+// Arguments: todo
+// Return value: the todo element
 const generateTodoDOM = (todo) => {
   const todoEl = document.createElement("label");
   const containerEl = document.createElement("div");
@@ -66,8 +58,7 @@ const generateTodoDOM = (todo) => {
   containerEl.appendChild(checkbox);
   checkbox.addEventListener("change", (e) => {
     checkUncheckTodo(todo.id);
-    saveTodos(todos);
-    renderTodos(todos, filters);
+    renderTodos();
   });
 
   // Setup todo text element
@@ -84,15 +75,16 @@ const generateTodoDOM = (todo) => {
   removeButton.classList.add("button", "button--text");
   removeButton.addEventListener("click", () => {
     removeTodo(todo.id);
-    saveTodos(todos);
-    renderTodos(todos, filters);
+    renderTodos();
   });
   todoEl.appendChild(removeButton);
 
   return todoEl;
 };
 
-// Returns a DOM element for the summary of incomplete todos
+// generateSummaryDOM
+// Arguments: incompletedTodos
+// Return value: the summary element
 const generateSummaryDOM = (incompleteTodos) => {
   let summary = document.createElement("h2")
   const plural = incompleteTodos.length === 1 ? "" : "s"
@@ -102,18 +94,5 @@ const generateSummaryDOM = (incompleteTodos) => {
   return summary;
 };
 
-// Remove todo from array
-const removeTodo = (id) => {
-  let todoIndex = todos.findIndex((todo) => todo.id === id);
-  if (todoIndex >= -1) {
-    todos.splice(todoIndex, 1);
-  }
-};
-
-// Mark todo as complete
-const checkUncheckTodo = (id) => {
-  const todo = todos.find((todo) => todo.id === id);
-  if (todo) {
-    todo.complete = !todo.complete;
-  }
-};
+// Make sure to set up the exports
+export { renderTodos }

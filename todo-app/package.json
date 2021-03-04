@@ -1,0 +1,23 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "live-server": "^1.2.1",
+    "uuid": "3.2.1",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  },
+  "devtool": "source-map",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.2"
+  }
+}
